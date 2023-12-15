@@ -149,12 +149,16 @@ namespace Hotel_Management_System.Pages
             con.Close();
         }
 
-        public void AddReservation(Reservation new_reservation)
+        public void AddReservation(Reservation new_reservation, string room_type, string has_ac)
         {
-            // Open the connection
+            // Check the connection state and close it if it is already open
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+
             con.Open();
 
-            // Get the maximum id from the Guest table and add 1 to it
             SqlCommand max_id_cmd = new SqlCommand("SELECT MAX (ReservationID) + 1 FROM Reservation", con);
             int max_id = Convert.ToInt32(max_id_cmd.ExecuteScalar());
 
@@ -162,19 +166,57 @@ namespace Hotel_Management_System.Pages
             new_reservation.is_cancelled = "No";
             new_reservation.guest_arrived = 0;
 
-            // insert into the Reservation table
-            SqlCommand cmnd = new SqlCommand("Insert Into Reservation (ReservationID, is_cancelled, " +
-                "guests_arrived, CheckINDate, NumGuests) Values (@ReservationID, @is_cancelled," +
-                " @guests_arrived, @CheckINDate, @NumGuests)", con);
+            // Query the database for the first room that matches the guest preferences
+            SqlCommand find_room_cmd = new SqlCommand("SELECT TOP 1 r.RoomNumber FROM Room r JOIN RoomType rt ON r.Type = rt.RoomTypeName WHERE r.Status = 'Vacant' AND rt.RoomTypeName = @room_type AND rt.HasAC = @has_ac ORDER BY r.Construction DESC", con);
+            find_room_cmd.Parameters.AddWithValue("@room_type", room_type);
+            find_room_cmd.Parameters.AddWithValue("@has_ac", has_ac);
 
-            cmnd.Parameters.AddWithValue("@ReservationID", new_reservation.reservation_id);
-            cmnd.Parameters.AddWithValue("@is_cancelled", new_reservation.is_cancelled);
-            cmnd.Parameters.AddWithValue("@guests_arrived", new_reservation.guest_arrived);
-            cmnd.Parameters.AddWithValue("@CheckINDate", new_reservation.check_in_date);
-            cmnd.Parameters.AddWithValue("@NumGuests", new_reservation.num_guests);
+            // Execute the query and get the result
+            object result = find_room_cmd.ExecuteScalar();
+            Console.WriteLine(result);
+            // Check if there is any matching room
+            if (result != null)
+            {
+                // Get the room number
+                int room_number = Convert.ToInt32(result);
 
-            cmnd.ExecuteNonQuery();
+                // Insert the reservation into the Reservation table
+                SqlCommand cmnd = new SqlCommand("Insert Into Reservation (ReservationID, is_cancelled, " +
+                    "guests_arrived, CheckINDate, NumGuests) Values (@ReservationID, @is_cancelled," +
+                    " @guests_arrived, @CheckINDate, @NumGuests)", con);
+
+                cmnd.Parameters.AddWithValue("@ReservationID", new_reservation.reservation_id);
+                cmnd.Parameters.AddWithValue("@is_cancelled", new_reservation.is_cancelled);
+                cmnd.Parameters.AddWithValue("@guests_arrived", new_reservation.guest_arrived);
+                cmnd.Parameters.AddWithValue("@CheckINDate", new_reservation.check_in_date);
+                cmnd.Parameters.AddWithValue("@NumGuests", new_reservation.num_guests);
+
+                cmnd.ExecuteNonQuery();
+
+                // Insert the room booking into the Room_books table
+                SqlCommand book_room_cmd = new SqlCommand("Insert Into Room_books (RoomNumber, ReservationID) Values (@RoomNumber, @ReservationID)", con);
+                book_room_cmd.Parameters.AddWithValue("@RoomNumber", room_number);
+                book_room_cmd.Parameters.AddWithValue("@ReservationID", new_reservation.reservation_id);
+
+                book_room_cmd.ExecuteNonQuery();
+
+                // Update the status of the room in the Room table
+                SqlCommand update_room_cmd = new SqlCommand("Update Room SET Status = 'Occupied' WHERE RoomNumber = @RoomNumber", con);
+                update_room_cmd.Parameters.AddWithValue("@RoomNumber", room_number);
+
+                update_room_cmd.ExecuteNonQuery();
+
+                // Display a message to confirm the reservation
+                Console.WriteLine("Your reservation has been confirmed. Your room number is {0}.", room_number);
+            }
+            else
+            {
+                // Display a message to inform the guest that there is no matching room
+                Console.WriteLine("Sorry, there is no room that matches your preferences.");
+            }
+
             con.Close();
         }
+
     }
 }

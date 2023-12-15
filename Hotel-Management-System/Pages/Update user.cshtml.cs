@@ -34,7 +34,7 @@ namespace Hotel_Management_System.Pages
         {
             new_guest.guest_id = id;
             DB.UpdateGuestInfo(new_guest);
-            return RedirectToPage("/index");
+            return RedirectToPage("/Update");
         }
     }
     

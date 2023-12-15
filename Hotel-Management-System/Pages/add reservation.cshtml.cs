@@ -10,7 +10,10 @@ namespace Hotel_Management_System.Pages
 
         [BindProperty]
         public Reservation new_reservation { get; set; } = new Reservation();
+        [BindProperty]
         public string room_type{ get; set; }
+        [BindProperty]
+        public string has_ac {  get; set; }
         public add_reservationModel(DB db)
         {
               this.DB = db;
@@ -20,7 +23,7 @@ namespace Hotel_Management_System.Pages
         }
         public IActionResult OnPost()
         {
-            DB.AddReservation(new_reservation);
+            DB.AddReservation(new_reservation, room_type, has_ac);
             return RedirectToPage("/index");
         }
     }
