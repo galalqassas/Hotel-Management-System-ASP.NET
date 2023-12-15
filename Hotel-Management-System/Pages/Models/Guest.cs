@@ -10,5 +10,6 @@
         public string street_number { get; set; }
         public string email { get; set; }
         public int not_showingup;
+        public int ssn;
     }
 }

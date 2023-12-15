@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Hotel_Management_System.Pages;
+using Hotel_Management_System.Pages.Models;
 using System.Data;
 namespace Hotel_Management_System.Pages
 {
@@ -18,7 +19,7 @@ namespace Hotel_Management_System.Pages
 
         public void OnGet()
         {
-            dt = db.ReadTable("DEPARTMENT");
+            dt = db.ReadTable("Guest");
         }
     }
 }

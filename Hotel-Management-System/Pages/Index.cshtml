@@ -9,26 +9,33 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Second</th>
-          <th scope="col">Third</th>
-          <th scope="col">Forth</th>
+          <th scope="col">Guest ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">City Code</th>
+          <th scope="col">Country Code</th>
+          <th scope="col">Street Number</th>
+          <th scope="col">Email</th>
+          <th scope="col"># not showing up</th>
+          <th scope="col">SSN</th>
+          <th scope="col">Operations</th>
         </tr>
       </thead>
       <tbody>
-
-          @for (int i = 0; i < Model.dt.Rows.Count; i++)
-          {
-            <tr>
-              <th scope="row">@i</th>
-              @for (int j = 0; j < Model.dt.Columns.Count; j++)
-              {
-                <td>@Model.dt.Rows[i][j]</td>
-              }
-            </tr>
-          } 
-        
+            @for (int i = 0; i < Model.dt.Rows.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(i + 1)</th>
+                    @for (int j = 1; j < Model.dt.Columns.Count; j++)
+                    {
+                        <td>@Model.dt.Rows[i][j]</td>
+                    }
+                    <td>
+                        <button type="button" class="btn btn-danger" asp-page="/Delete" asp-route-i="@(i+1)"> Delete </button>
+                        <button type="button" class="btn btn-warning" asp-page="/Update" asp-route-i="@(i+1)"> Update </button>
+                    </td>
+                </tr>
+            }
       </tbody>
     </table>
 </div>
