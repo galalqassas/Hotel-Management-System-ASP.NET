@@ -1,6 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using Hotel_Management_System.Pages.Models;
+using Azure.Core;
 namespace Hotel_Management_System.Pages
 {
     public class DB
@@ -8,7 +9,6 @@ namespace Hotel_Management_System.Pages
         public SqlConnection con { get; set; }
         public List<Guest> guests { get; set; } = new List<Guest>();
 
-        int i = 60;
         public DB()
         {
             string conStr = "Data Source=DESKTOP-DFJM3O9;Initial Catalog=Hotel;Integrated Security=True;";
@@ -71,6 +71,81 @@ namespace Hotel_Management_System.Pages
             cmnd.Parameters.AddWithValue("@SSN", new_guest.ssn);
 
             cmnd.ExecuteNonQuery();
+            con.Close();
+        }
+        public Guest GetGuestById(int id)
+        {
+            // create a Guest object to store the result
+            Guest guest = null;
+            // create a connection object using the connection string
+            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-DFJM3O9;Initial Catalog=Hotel;Integrated Security=True;"))
+            {
+                // create a command object using the connection and the query
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Guest WHERE GuestID = @id", con))
+                {
+                    // add a parameter to the command with the id value
+                    cmd.Parameters.AddWithValue("@id", id);
+                    // open the connection
+                    con.Open();
+                    // execute the command and get a data reader
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        // if there is a row in the result
+                        if (reader.Read())
+                        {
+                            // create a new Guest object with the values from the reader
+                            guest = new Guest();
+                            guest.guest_id = (int)reader["GuestID"];
+                            guest.first_name = (string)reader["FirstName"];
+                            guest.last_name = (string)reader["LastName"];
+                            guest.city_code = (string)reader["City_code"];
+                            guest.country_code = (string)reader["Country_code"];
+                            guest.street_number = (string)reader["Street_number"];
+                            guest.email = (string)reader["Email"];
+                            guest.not_showingup = (int)reader["notshowingup"];
+                            guest.ssn = (int)reader["SSN"];
+                        }
+                    }
+                    // close the connection
+                    con.Close();
+                }
+            }
+            // return the guest object or null if not found
+            return guest;
+        }
+        public void UpdateGuestInfo(Guest updated_guest)
+        {
+            // get the values from the form
+            string firstName = updated_guest.first_name;
+            string lastName = updated_guest.last_name;
+            string cityCode = updated_guest.city_code;
+            string countryCode = updated_guest.country_code;
+            string streetNumber = updated_guest.street_number;
+            string email = updated_guest.email;
+            int ssn = updated_guest.ssn;
+            int id = updated_guest.guest_id;
+
+            // check the connection state and close it if open
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+            // open the connection
+            con.Open();
+            // create a command object using the connection and the query
+            SqlCommand cmd = new SqlCommand("UPDATE Guest SET FirstName = @firstName, LastName = @lastName, City_code = @cityCode, Country_code = @countryCode, Street_number = @streetNumber, Email = @email, SSN = @ssn WHERE GuestID = @id", con);
+            // add parameters to the command with the values from the form
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@firstName", firstName);
+            cmd.Parameters.AddWithValue("@lastName", lastName);
+            cmd.Parameters.AddWithValue("@cityCode", cityCode);
+            cmd.Parameters.AddWithValue("@countryCode", countryCode);
+            cmd.Parameters.AddWithValue("@streetNumber", streetNumber);
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@ssn", ssn);
+            // execute the command
+            cmd.ExecuteNonQuery();
+            // close the connection
             con.Close();
         }
 

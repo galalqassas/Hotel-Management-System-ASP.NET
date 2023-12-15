@@ -1,0 +1,54 @@
+﻿@page
+@model Hotel_Management_System.Pages.UpdateModel
+@{
+}
+<form method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Guest ID</label>
+        <input type="text" class="form-control" placeholder="Enter the guest ID" asp-for="@Model.guest_id">
+    </div>
+    <br />
+<div class="form-group">
+    <label for="exampleInputEmail1">First Name</label>
+    <input type="text" class="form-control" placeholder="Enter your first name" asp-for="@Model.new_guest.first_name">
+</div>
+<br />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Last Name</label>
+    <input type="text" class="form-control" placeholder="Enter your last name" asp-for="@Model.new_guest.last_name">
+</div>
+<br />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">City Code</label>
+    <input type="text" class="form-control" placeholder="Enter your city code" asp-for="@Model.new_guest.city_code">
+</div>
+<br />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Country Code</label>
+    <input type="text" class="form-control" placeholder="Enter your country code" asp-for="@Model.new_guest.country_code">
+</div>
+<br />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Street Number</label>
+    <input type="text" class="form-control" placeholder="Enter your street number" asp-for="@Model.new_guest.street_number">
+</div>
+<br />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" placeholder="Enter email" asp-for="@Model.new_guest.email">
+</div>
+<br />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">SSN</label>
+    <input type="text" class="form-control" placeholder="Enter your SSN" asp-for="@Model.new_guest.ssn">
+</div>
+<br />
+
+<button type="submit" class="btn btn-primary">Update</button>
+</form>

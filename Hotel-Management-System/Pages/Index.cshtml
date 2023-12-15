@@ -31,8 +31,8 @@
                         <td>@Model.dt.Rows[i][j]</td>
                     }
                     <td>
-                        <button type="button" class="btn btn-danger" asp-page="/Delete" asp-route-i="@(i+1)"> Delete </button>
-                        <button type="button" class="btn btn-warning" asp-page="/Update" asp-route-i="@(i+1)"> Update </button>
+                        <a class="btn btn-danger" asp-page="/Delete" asp-page-handler="Delete" asp-route-i="@(i+1)"> Delete </a>
+                        <a class="btn btn-warning" asp-page="/Update" asp-page-handler="Update" asp-route-i="@(i+1)"> Update </a>
                     </td>
                 </tr>
             }
