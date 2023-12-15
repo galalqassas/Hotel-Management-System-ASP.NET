@@ -1,0 +1,30 @@
+﻿@page
+@model Hotel_Management_System.Pages.AddRatingModel
+@{
+}
+<form method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Date</label>
+        <input type="date" class="form-control" placeholder="Date: " asp-for="@Model.new_rating.date">
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail1">Tell us your opinion</label>
+        <input type="text" class="form-control" placeholder="Feedback: " asp-for="@Model.new_rating.feedback">
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail1" id="sliderValue">Rate Us 3 out of 5</label>
+        <input type="range" class="form-control" min="0" max="5" id="slider" oninput="updateValue(this.value)" asp-for="@Model.new_rating.rating_score">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script>
+    var slider = document.getElementById("slider");
+    var output = document.getElementById("sliderValue");
+    output.innerHTML = "Rate Us " + slider.value + " out of 5";
+    function updateValue(val) {
+        output.innerHTML = "Rate Us " + slider.value + " out of 5";
+    }
+</script>
