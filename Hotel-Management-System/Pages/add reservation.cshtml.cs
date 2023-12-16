@@ -24,7 +24,14 @@ namespace Hotel_Management_System.Pages
         public IActionResult OnPost()
         {
             DB.AddReservation(new_reservation, room_type, has_ac);
-            return RedirectToPage("/index");
-        }
+            if (new_reservation.check_in_date == null && new_reservation.num_guests <= 0)
+{
+
+    return RedirectToPage("/Error");
+}
+else
+{
+    return RedirectToPage("/index");
+}
     }
 }
