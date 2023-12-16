@@ -26,4 +26,4 @@ namespace Hotel_Management_System.Pages
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
     }
-    }
+}

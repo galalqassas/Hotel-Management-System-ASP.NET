@@ -11,12 +11,12 @@ namespace Hotel_Management_System.Pages
         [BindProperty]
         public Reservation new_reservation { get; set; } = new Reservation();
         [BindProperty]
-        public string room_type{ get; set; }
+        public string room_type { get; set; }
         [BindProperty]
-        public string has_ac {  get; set; }
+        public string has_ac { get; set; }
         public add_reservationModel(DB db)
         {
-              this.DB = db;
+            this.DB = db;
         }
         public void OnGet()
         {
@@ -25,14 +25,14 @@ namespace Hotel_Management_System.Pages
         {
             DB.AddReservation(new_reservation, room_type, has_ac);
             if (new_reservation.check_in_date == null && new_reservation.num_guests <= 0)
-{
+            {
 
-    return RedirectToPage("/Error");
-}
-else
-{
-    return RedirectToPage("/index");
-}
+                return RedirectToPage("/Error");
+            }
+            else
+            {
+                return RedirectToPage("/index");
+            }
+        }
     }
-}
 }

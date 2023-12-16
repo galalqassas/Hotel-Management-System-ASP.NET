@@ -1,0 +1,39 @@
+﻿@page
+@model Hotel_Management_System.Pages.add_reservationModel
+@{
+}
+
+
+<h1>Reservation</h1>
+
+<p>Please fill in the details below to reserve a room.</p>
+<form method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Check-In Date</label>
+        <input type="date" class="form-control" placeholder="Check-in Date: " asp-for="@Model.new_reservation.check_in_date">
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail1">Number of Guests</label>
+        <input type="number" class="form-control" placeholder="Guests: " asp-for="@Model.new_reservation.num_guests">
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail1">Room Type</label>
+        <select class="form-control" asp-for="@Model.room_type">
+            <option value="Standard">Standard</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Suite">Suite</option>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+        </select>
+        <br />
+        <label for="exampleInputEmail1">Air Conditioning Preference</label>
+        <select class="form-control" asp-for="@Model.has_ac">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
