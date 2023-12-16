@@ -3,39 +3,143 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<div class="text-center">
-    <h1>@Model.dt.Rows.Count</h1>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Guest ID</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">City Code</th>
-          <th scope="col">Country Code</th>
-          <th scope="col">Street Number</th>
-          <th scope="col">Email</th>
-          <th scope="col"># not showing up</th>
-          <th scope="col">SSN</th>
-          <th scope="col">Operations</th>
-        </tr>
-      </thead>
-      <tbody>
-            @for (int i = 0; i < Model.dt.Rows.Count; i++)
-            {
-                <tr>
-                    <th scope="row">@(i + 1)</th>
-                    @for (int j = 1; j < Model.dt.Columns.Count; j++)
-                    {
-                        <td>@Model.dt.Rows[i][j]</td>
-                    }
-                    <td>
-                        <a class="btn btn-danger" asp-page="/Delete" asp-page-handler="Delete" asp-route-i="@(i+1)"> Delete </a>
-                        <a class="btn btn-warning" asp-page="/Update" asp-page-handler="Update" asp-route-i="@(i+1)"> Update </a>
-                    </td>
-                </tr>
-            }
-      </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="titlepage">
+                <h2>The Best Hotel Ever</h2>
+                <p> Enjoy your stay </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <div id="serv_hover" class="room">
+                <div class="room_img">
+                    <figure><img src="images/room1.jpg" alt="#" /></figure>
+                </div>
+                <div class="bed_room">
+                    <h3>Bed Room</h3>
+                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div id="serv_hover" class="room">
+                <div class="room_img">
+                    <figure><img src="images/room2.jpg" alt="#" /></figure>
+                </div>
+                <div class="bed_room">
+                    <h3>Bed Room</h3>
+                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div id="serv_hover" class="room">
+                <div class="room_img">
+                    <figure><img src="images/room3.jpg" alt="#" /></figure>
+                </div>
+                <div class="bed_room">
+                    <h3>Bed Room</h3>
+                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div id="serv_hover" class="room">
+                <div class="room_img">
+                    <figure><img src="images/room4.jpg" alt="#" /></figure>
+                </div>
+                <div class="bed_room">
+                    <h3>Bed Room</h3>
+                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div id="serv_hover" class="room">
+                <div class="room_img">
+                    <figure><img src="images/room5.jpg" alt="#" /></figure>
+                </div>
+                <div class="bed_room">
+                    <h3>Bed Room</h3>
+                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div id="serv_hover" class="room">
+                <div class="room_img">
+                    <figure><img src="images/room6.jpg" alt="#" /></figure>
+                </div>
+                <div class="bed_room">
+                    <h3>Bed Room</h3>
+                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+
+
+<div class="gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>gallery</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery1.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery2.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery3.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery4.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery5.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery6.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery7.jpg" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="images/gallery8.jpg" alt="#" /></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/jquery-3.0.0.min.js"></script>
+<script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/js/custom.js"></script>
