@@ -1,0 +1,36 @@
+﻿@page
+@model Hotel_Management_System.Pages.Services___Copy.HousekeepingModel
+@{
+
+}
+
+<h1> Housekeeping </h1>
+<form method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Room number</label>
+        <input type="number" class="form-control" placeholder="room number">
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail1">Requested Service</label>
+        <select class="form-control" >
+            <option value="Cleaning">Cleaning</option>
+            <option value="Deep Cleaning">Deep Cleaning</option>
+            <option value="Laundry">Laundry</option>
+            <option value="Waste Disposal">Waste Disposal</option>
+            <option value="Pest Control">Pest Control</option>
+            <option value="Floor Polishing">Floor Polishing</option>
+            <option value="Window Cleaning">Window Cleaning</option>
+            <option value="Carpet Cleaning">Carpet Cleaning</option>
+        </select>
+        <br />
+        <label for="exampleInputEmail1">Priority</label>
+        <select class="form-control">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+        </select>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
