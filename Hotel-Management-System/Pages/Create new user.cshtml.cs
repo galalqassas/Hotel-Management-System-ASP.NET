@@ -20,8 +20,20 @@ namespace Hotel_Management_System.Pages
             // nothing to do here
         }
         public IActionResult OnPost() {
-            DB.AddGuest(new_guest);
-            return RedirectToPage("/index");
+          
+              DB.AddGuest(new_guest);
+  if (string.IsNullOrEmpty(new_guest.first_name) && string.IsNullOrEmpty(new_guest.last_name) &&
+      string.IsNullOrEmpty(new_guest.city_code) && string.IsNullOrEmpty(new_guest.country_code) &&
+      string.IsNullOrEmpty(new_guest.street_number) && string.IsNullOrEmpty(new_guest.email))
+  {
+
+      return RedirectToPage("/Error"); ;
+  }
+  else
+  {
+      return RedirectToPage("/index");
+  }
+            
         }
     }
 }
